@@ -22,7 +22,7 @@ function Movie({ title, poster_path, overview, vote_average, release_date }) {
 				</span>
 			</div>
 			<p className="release-date">
-				Year of release: {release_date.slice(0, 4)}
+				Year of release: {release_date}
 			</p>
 
 			<div className="movie-overview">
