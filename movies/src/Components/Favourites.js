@@ -1,9 +1,16 @@
 import React from 'react';
 
-const Favourites = ({ favourites }) => {
+const Favourites = ({ favourites, setFavourites }) => {
 	const IMG_API = 'https://image.tmdb.org/t/p/w1280';
 
-	console.log(favourites);
+	const removeFromFavs = (movie) => {
+		setFavourites(
+			favourites.filter((fav) => {
+				return fav.id !== movie.id;
+			})
+		);
+	};
+
 	const { title } = favourites;
 	return (
 		<>
@@ -31,6 +38,9 @@ const Favourites = ({ favourites }) => {
 							<p className="release-date">
 								Year of release: {movie.release_date}
 							</p>
+							<h2 className="favourite" onClick={() => removeFromFavs(movie)}>
+								❌
+							</h2>
 						</div>
 					);
 				})}
