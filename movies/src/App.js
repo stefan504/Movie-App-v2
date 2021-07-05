@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Movie from './Components/Movie';
 import Navigation from './Components/Navigation';
 import Footer from './Components/Footer';
+import Favourites from './Components/Favourites';
 
 const FEATURED =
 	'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=2e32f4bcb384192eb49d2c953c602420';
@@ -13,6 +14,7 @@ const SEARCH_API =
 const App = () => {
 	const [movies, setMovies] = useState([]);
 	const [searchTerm, setSearchTerm] = useState('');
+	const [favourites, setFavourites] = useState([]);
 
 	//    GET MOVIE DATA FUNCTION
 	const getMovies = (API) => {
@@ -42,8 +44,19 @@ const App = () => {
 		setSearchTerm(e.target.value);
 	};
 
+	const addToFavs = (movie) => {
+		let alreadyInFavs = false;
+		favourites.forEach((fav) => {
+			if (fav.id === movie.id) {
+				return (alreadyInFavs = true);
+			}
+			console.log(alreadyInFavs);
+		});
+		if (!alreadyInFavs) setFavourites([movie, ...favourites]);
+	};
+
 	return (
-		<>
+		<Router>
 			<header>
 				<div className="nav">
 					<i id="star" className="fas fa-star">
@@ -61,15 +74,27 @@ const App = () => {
 					/>
 				</form>
 			</header>
-			<div className="movie-container">
-				{movies.map((movie) => (
-					<Movie {...movie} key={movie.id} />
-				))}
-			</div>
+			<Switch>
+				<Route exact path="/">
+					<div className="movie-container">
+						{movies.map((movie) => (
+							<Movie
+								{...movie}
+								key={movie.id}
+								movie={movie}
+								addToFavs={addToFavs}
+							/>
+						))}
+					</div>
+				</Route>
+				<Route exact path="/favourites">
+					<Favourites favourites={favourites} setFavourites={setFavourites} />
+				</Route>
+			</Switch>
 			<footer>
 				<Footer />
 			</footer>
-		</>
+		</Router>
 	);
 };
 

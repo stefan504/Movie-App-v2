@@ -2,7 +2,15 @@ import React from 'react';
 
 const IMG_API = 'https://image.tmdb.org/t/p/w1280';
 
-function Movie({ title, poster_path, overview, vote_average, release_date }) {
+function Movie({
+	addToFavs,
+	title,
+	poster_path,
+	overview,
+	vote_average,
+	release_date,
+	movie,
+}) {
 	return (
 		<div className="movie">
 			<img
@@ -21,14 +29,15 @@ function Movie({ title, poster_path, overview, vote_average, release_date }) {
 					<i className="fas fa-star"></i>
 				</span>
 			</div>
-			<p className="release-date">
-				Year of release: {release_date}
-			</p>
+			<p className="release-date">Year of release: {release_date}</p>
 
 			<div className="movie-overview">
 				<h2>Overview:</h2>
 				<p>{overview}</p>
 			</div>
+			<h2 className="favourite" onClick={() => addToFavs(movie)}>
+				💛
+			</h2>
 		</div>
 	);
 }

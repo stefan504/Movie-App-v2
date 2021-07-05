@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const TOP_RATED =
 	'https://api.themoviedb.org/3/movie/top_rated?api_key=2e32f4bcb384192eb49d2c953c602420&language=en-US&page=1';
@@ -12,15 +13,26 @@ const UPCOMING_API =
 function Navigation({ getMovies }) {
 	return (
 		<>
-			<h2 className="h2" onClick={() => getMovies(FEATURED)}>
-				Popular
-			</h2>
-			<h2 className="h2" onClick={() => getMovies(TOP_RATED)}>
-				Top rated
-			</h2>
-			<h2 className="h2" onClick={() => getMovies(UPCOMING_API)}>
-				Upcoming
-			</h2>
+			<Link to="/">
+				<h2 className="h2" onClick={() => getMovies(FEATURED)}>
+					Popular
+				</h2>
+			</Link>
+			<Link to="/">
+				<h2 className="h2" onClick={() => getMovies(TOP_RATED)}>
+					Top rated
+				</h2>
+			</Link>
+			<Link to="/">
+				{' '}
+				<h2 className="h2" onClick={() => getMovies(UPCOMING_API)}>
+					Upcoming
+				</h2>
+			</Link>
+
+			<Link to="/favourites">
+				<h2 className="h2">Favourites ♥</h2>
+			</Link>
 		</>
 	);
 }
