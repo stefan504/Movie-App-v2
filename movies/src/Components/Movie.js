@@ -15,7 +15,6 @@ function Movie({
 	return (
 		<div className="movie">
 			<img
-				onClick={() => openModal(movie)}
 				src={
 					poster_path
 						? IMG_API + poster_path
